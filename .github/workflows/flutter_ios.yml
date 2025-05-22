@@ -17,17 +17,18 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.6'  # <-- Set this explicitly!
-          architecture: x64          # <-- Add this line if arm64 still fails
+          flutter-version: '3.19.6'
 
       - name: Install dependencies
         run: flutter pub get
+        working-directory: ridely
 
       - name: Build iOS app
         run: flutter build ios --release --no-codesign
+        working-directory: ridely
 
       - name: Archive build output
         uses: actions/upload-artifact@v4
         with:
           name: ios-release
-          path: build/ios/iphoneos/Runner.app
+          path: ridely/build/ios/iphoneos/Runner.app
